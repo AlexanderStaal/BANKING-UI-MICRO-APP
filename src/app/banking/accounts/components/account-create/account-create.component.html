@@ -1,0 +1,58 @@
+<h3 class="d-flex justify-content-center">
+    <div class="container mt-5">
+        <form class="content" [formGroup]="formgroup" (ngSubmit)="createAccount()">
+            <h1 class="d-flex">Create</h1>
+            <h2 class="d-flex">Account</h2>
+            <div class="row">
+                <div class="submit-form">
+
+
+                    <!-- accountName -->
+                    <div class="mb-3">
+                        <label>Account Name</label>
+                        <input type="text" class="form-control" formControlName="accountName" maxlength="55" autocomplete="off"
+                            name="accountName" placeholder="Account Name" [(ngModel)]="addAccountRequest.accountName" />
+                        <!-- display error start -->
+                        <div *ngIf="accountName.invalid && (accountName.touched || accountName.dirty)">
+                            <span class="text-danger" *ngIf="accountName.errors?.required">*Account Name is
+                                Required</span>
+
+                            <span class="text-danger" *ngIf="accountName.errors?.minlength">*Minimum 6 characters is
+                                Required</span>
+
+                            <span class="text-danger" *ngIf="accountName.errors?.pattern">*Enter only Alphnumeric
+                                characters.</span>
+                        </div>
+                        <!-- display error end -->
+                    </div>
+
+                    <!-- balance -->
+                    <div class="mb-3">
+                        <label for="balance">Balance</label>
+                        <input type="number" class="form-control" formControlName="balance" placeholder="Balance"
+                            name="balance" [(ngModel)]="addAccountRequest.balance" />
+                        <!-- display error start -->
+                        <div *ngIf="balance.invalid && (balance.touched || balance.dirty)">
+                            <span class="text-danger" *ngIf="balance.errors?.required">*Balance is Required</span>
+                            <span class="text-danger" *ngIf="balance.errors?.min">*Allowed ammount beetwen
+                                $1 - $1,000,000</span>
+                            <span class="text-danger" *ngIf="balance.errors?.max">*Allowed ammount beetwen
+                                $1 - $1,000,000</span>
+                        </div>
+                        <!-- display error end -->
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        
+                        <small class="form-text text-danger" style="padding-left: 20px;">
+                            {{ responseStatus }}<br />
+                        </small>
+
+                        <a class="link" [routerLink]="['/accounts']">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</h3>

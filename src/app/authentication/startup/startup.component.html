@@ -1,0 +1,62 @@
+<mat-card class="login-Box">
+
+    <form [formGroup]="formgroup">
+        <mat-card-header>
+            <mat-card-title>Login</mat-card-title>
+            <mat-card-subtitle>Login page for external users.</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div class="cus-mat-table">
+                <div class="mat-row">
+                    <span class="mat-form-field mat-form-field-appearance-outline"
+                        [ngClass]="{'mat-focused': field.value}">
+                        <mat-form-field appearance="outline">
+                            <mat-label>User Name</mat-label>
+                            <input #field matInput placeholder="User Name" formControlName="userName" />
+                            <mat-icon matSuffix>account_circle</mat-icon>
+                        </mat-form-field>
+                    </span>
+                </div>
+
+                <div class="mat-row">
+                    <div class="select">
+                        <select class="select-text" required required [options]="rolesOptions" [(open)]="roleOpen"
+                            [dynamicPosition]="true" [(selection)]="roleSelection"
+                            (selectionChange)="selectRole($event)" name="roles">
+                            <option value="" disabled selected></option>
+                            <option *ngFor="let role of roles" formControlName="roles">
+                                {{role.value}}</option>
+                        </select>
+                        <small class="form-text text-danger">
+                            {{ roleMsg }}<br />
+                        </small>
+                        <label class="select-label">Select an option</label>
+                    </div>
+                </div>
+
+                <div class="mat-row">
+                    <span class="mat-form-field mat-form-field-appearance-outline"
+                        [ngClass]="{'mat-focused': field.value}">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Authorization token</mat-label>
+                            <input #field matInput placeholder="Authorization token" formControlName="token" />
+                        </mat-form-field>
+                    </span>
+                </div>
+
+                <div class="mat-row">
+                    <app-Banking-error *ngIf="error" class="error" [error]="error"></app-Banking-error>
+                    <mat-divider></mat-divider>
+                    <section class="content">
+                    </section>
+                    <button [disabled]="!formgroup.valid" nglButton type="submit"
+                        class="btn btn-primary btn-block mt-4 w-100" (click)="login(userName)">Login</button>
+                    <span class="text-danger" style="padding-left: 20px;"><br><br>
+                        {{ responseStatus }}
+                    </span>
+                </div>
+            </div>
+        </mat-card-content>
+    </form>
+</mat-card>

@@ -1,0 +1,130 @@
+<h3 class="d-flex justify-content-center">
+    <div class="container mt-5">
+        <h1 class="d-flex">All Accounts</h1>
+        <span>
+            <a class="link" [routerLink]="['/accountCreate']">Account Create</a>
+        </span>
+        <ng-template #heading>All Accounts</ng-template>
+
+        <form novalidate [formGroup]="formgroup">
+            <hr>
+            <div class="row search-row">
+                <div class="col search-result-style" id="scrollbar" #target *ngIf="dataSource">
+                    <mat-form-field>
+                        <mat-label>Filter</mat-label>
+                        <input matInput placeholder="Filter" (keyup)="Filterchange($event)">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select placeholder="Esport" [(value)]="selectedOption">
+                            <mat-option value="0"></mat-option>
+                            <mat-option id='btn' #btn value="1"
+                                (click)="exporter.exportTable('xlsx', {sheet: 'sheet_name', Props: {Author: 'Talha'}, columnWidths: [50, 5, 3]});btn.value=null">
+                                Excel</mat-option>
+                            <mat-option id='btn2' #btn2 value="2" (click)="exporter.exportTable('csv');btn2.value=null">
+                                CVC
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" class="slds-table"
+                matSort matSortActive="accountNumber" matSortDirection="asc">
+
+                <legent *ngIf="false">Account Search</legent>
+
+                <ng-container matColumnDef="accountName">
+                    <th *matHeaderCellDef class="tHeader pr-5 text-left account-header" scope="col" mat-sort-header>
+                        <div class="slds-truncate" title="Account Name">
+                            Account Name
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element; let i = index"
+                        class="font-responsive text-left whiteSpace slds-truncate">
+                        <div>
+                            <span>{{element.accountName}}</span>
+                        </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef> Total </td>
+                </ng-container>
+
+                <ng-container matColumnDef="balance">
+                    <th *matHeaderCellDef class="tHeader pr-5 account-blance" scope="col" mat-sort-header>
+                        <div class="slds-truncate" title="Balance">
+                            Balance
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element; let i = index"
+                        class="font-responsive slds-truncate whiSpace text-left slds-cell-wrap">
+                        <div>
+                            <span>{{element.balance}}</span>
+                        </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef>
+                        {{calculatTotal()}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th *matHeaderCellDef class="tHeader" scop="col">
+                        <div class="slds-truncate" title="Action">
+
+                        </div>
+                    </th>
+
+                    <td mat-cell *matCellDef="let element; let i = index"
+                        class="font-responsive slds-truncate text-center whiteSpace slds-cell-wrap">
+
+                        <a class="link" [routerLink]="['/accountEdit', element.accountNumber ]">Edit</a>
+                        &nbsp; | &nbsp;
+                        <a class="link" (click)="show(element)">Details</a>
+                        &nbsp; | &nbsp;
+                        <a class="link" [routerLink]="['/accountDelete', element.accountNumber ]">Delete</a>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+            </table>
+
+            <table>
+                <tr *ngIf="!dataSource">
+                    <td class="no-records" [attr.colspan]="displayedColumns.length">
+                        No Records Found!
+                    </td>
+                </tr>
+            </table>
+
+            <mat-paginator [hidden]="!dataSource" [pageSize]="5" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons>
+            </mat-paginator>
+        </form>
+    </div>
+</h3>
+
+
+<ngl-modal header="" [(open)]="openDialog" size="medium">
+    <div class="container">
+        <table mat-table [dataSource]="dataSourceAccountDetails" class="slds-table">
+
+            <ng-container matColumnDef="accountNumber">
+                <th mat-header-cell *matHeaderCellDef> Account Number </th>
+                <td mat-cell *matCellDef="let element"> {{element.accountNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="accountName">
+                <th mat-header-cell *matHeaderCellDef> Account Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.accountName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="balance">
+                <th mat-header-cell *matHeaderCellDef> Balance </th>
+                <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="accountDetailsColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: accountDetailsColumns;"></tr>
+        </table>
+    </div>
+
+</ngl-modal>

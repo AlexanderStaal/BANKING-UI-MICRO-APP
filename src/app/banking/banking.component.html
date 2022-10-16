@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <h1 class="d-flex justify-content-center fw-light">Welcome to banking app Home</h1>
+  <h2 class="d-flex justify-content-center fw-light">
+    <div>
+      <div>
+        <span>
+          View all Acounts <a class="link" [routerLink]="['/accounts']">here</a>
+        </span>
+      </div>
+      <div>
+        <span>
+          Initiate a transfer <a class="link" [routerLink]="['/transferFunds']">here</a>
+        </span>
+      </div>
+      <div>
+        <span>
+          View all Transactions <a class="link" [routerLink]="['/transferFundsHistory']">here</a>
+        </span>
+      </div>
+    </div>
+  </h2>
+</div>
+
+<ng-template label="Accounts">
+  <app-banking></app-banking>
+</ng-template>
+<ng-template label="Account Create">
+  <app-account-create></app-account-create>
+</ng-template>
+<ng-template label="Account Delete">
+  <app-account-delete></app-account-delete>
+</ng-template>
+<ng-template label="Account Edit">
+  <app-account-edit></app-account-edit>
+</ng-template>
+<ng-template label="Transfer Funds">
+  <app-transfer-funds></app-transfer-funds>
+</ng-template>
+<ng-template label="Transfer Funds History">
+  <app-transfer-funds-history></app-transfer-funds-history>
+</ng-template>

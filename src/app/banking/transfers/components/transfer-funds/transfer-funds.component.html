@@ -1,0 +1,123 @@
+<h3 class="d-flex justify-content-center">
+  <div class="container mt-5">
+    <h1 class="d-flex justify-content-center">Transfer Funds</h1>
+    <form [formGroup]="formgroup" (ngSubmit)="transferFunds()">
+      <div class="cardtitle">
+        <div class="row">
+
+          <div class="col-2 combobox-align-style">
+
+            <ngl-combobox class="dropdown-style" [options]="fromAccountOptions" [(open)]="fromAccountComboboxOpen"
+              [style]="{'height': '43px'}" [dynamicPosition]="true" [(selection)]="fromAccountSelection"
+              (selectionChange)="onFromAccountSeleted($event)" name="fromAccountSource">From Account
+              <input nglCombobox formControlName="fromAccountSource">
+            </ngl-combobox>
+            <br>
+            <small class="form-text text-danger">
+              {{ fromAccountMsg }}<br />
+            </small>
+            <span class="text-danger">
+              {{ responseStatus }}<br />
+            </span>
+          </div>
+
+          <div class="col-2">
+            <ngl-combobox class="dropdown-style" [options]="toAccountOptions" [(open)]="toAccountComboboxOpen"
+              [style]="{'height': '43px'}" [dynamicPosition]="true" [(selection)]="toAccountSelection"
+              (selectionChange)="onToAccountSeleted($event)" name="toAccountSource">To Account
+              <input nglCombobox formControlName="toAccountSource">
+            </ngl-combobox>
+            <br>
+            <small class="form-text text-danger">
+              {{ toAccountMsg }}<br />
+            </small>
+          </div>
+
+          <!-- amount -->
+          <div class="col-2 combobox-align-style">
+            <label for="amount">Amount</label>
+            <input type="number" class="form-control" formControlName="amount" placeholder="Amount" name="amount"
+              [style]="{'height': '40px'}" [(ngModel)]="transferFundsRequest.amount" />
+
+            <!-- display error start -->
+            <div *ngIf="amount.invalid && (amount.touched || amount.dirty)">
+              <span class="text-danger" *ngIf="amount.errors?.required">*Amount is Required</span>
+              <span class="text-danger" *ngIf="amount.errors?.min">*Allowed ammount beetwen
+                $1-$10000</span>
+              <span class="text-danger" *ngIf="amount.errors?.max">*Allowed ammount beetwen
+                $1-$10000</span>
+            </div>
+          </div>
+          <!-- display error end -->
+
+          <div class="col text-right">
+            <div class="search-div-style">
+              <button [disabled]="!formgroup.valid" nglButton type="submit" class="btn btn-primary"
+                overrideheight>Transfer</button>
+            </div>
+            <a class="link" [routerLink]="['/transferFundsHistory']">Back to List</a>
+          </div>
+
+          <div class="col">
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+
+    <table>
+      <tr *ngIf="!dataSource">
+        <td class="no-records">
+          {{errorMessage}}
+        </td>
+      </tr>
+    </table>
+  </div>
+</h3>
+
+<ng-container class="container" *ngIf="fromAccountDetailsData" class="row">
+  <table mat-table [dataSource]="fromAccountDetailsData" class="slds-table">
+
+    <ng-container matColumnDef="accountNumber">
+      <th mat-header-cell *matHeaderCellDef>From Account Number</th>
+      <td mat-cell *matCellDef="let element"> {{element.accountNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="accountName">
+      <th mat-header-cell *matHeaderCellDef>From Account Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.accountName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="balance">
+      <th mat-header-cell *matHeaderCellDef>Available Balance</th>
+      <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="accountDetailsColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: accountDetailsColumns;"></tr>
+  </table>
+</ng-container>
+
+<ng-container class="container" *ngIf="toAccountDetailsData" class="row">
+  <table mat-table [dataSource]="toAccountDetailsData" class="slds-table">
+
+    <ng-container matColumnDef="accountNumber">
+      <th mat-header-cell *matHeaderCellDef> To Account Number </th>
+      <td mat-cell *matCellDef="let element"> {{element.accountNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="accountName">
+      <th mat-header-cell *matHeaderCellDef> To Account Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.accountName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="balance">
+      <th mat-header-cell *matHeaderCellDef> Available Balance </th>
+      <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="accountDetailsColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: accountDetailsColumns;"></tr>
+  </table>
+</ng-container>
