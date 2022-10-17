@@ -13,7 +13,6 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class AccountDeleteComponent implements OnInit {
-  //accountData: AccountData;
   formgroup: FormGroup;
 
   delAccountRequest: AccountData = {
@@ -27,7 +26,6 @@ export class AccountDeleteComponent implements OnInit {
     private activeRouter: ActivatedRoute,
     private router: Router,
     private dialogService: DialogService) {
-    //this.accountData = new AccountData();
   }
 
   ngOnInit(): void {

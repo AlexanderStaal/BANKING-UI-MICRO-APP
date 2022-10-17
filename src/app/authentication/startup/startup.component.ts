@@ -1,10 +1,10 @@
 import { InternalUserData, LoginStatus } from '../shared/models/login.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../shared/services/login.service';
+import { RoleType } from '../login/role-type.component';
 import { NglComboboxOptionItem } from 'ng-lightning';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RoleType } from '../login/role-type.component';
 
 export interface Roles {
   value: string;
@@ -68,7 +68,6 @@ export class StartupComponent implements OnInit {
   }
 
   login(userName: string): void {
-    debugger;
     this.responseStatus = 'User Id not found';
     try {
       let isSubmit: Boolean = true;

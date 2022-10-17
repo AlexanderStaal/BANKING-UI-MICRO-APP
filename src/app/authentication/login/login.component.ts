@@ -1,8 +1,7 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LoginService } from '../shared/services/login.service';
 import ValidateForm from 'src/app/banking/shared/formValidator';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
-import { LoginService } from '../shared/services/login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,34 +16,31 @@ export class LoginComponent implements OnInit {
   eyeIcon: string = "fa-eye-slash";
   formgroup: FormGroup;
 
+  get userName() { return this.formgroup.get('userName') }
+  get password() { return this.formgroup.get('password') }
 
-  constructor(private readonly formBuilder: FormBuilder,
-    private service: LoginService,
+  constructor(private service: LoginService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.formgroup = new FormGroup({
       "firstName": new FormControl(''),
       "lastName": new FormControl(''),
-      "userName": new FormControl(''),
-      "password": new FormControl(''),
+      "userName": new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z 0-9]*')]),
+      "password": new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z 0-9]*')]),
       "token": new FormControl(''),
       "role": new FormControl(''),
       "email": new FormControl(''),
     });
   }
 
-  onLogin(){
-  
-
+  onLogin() {
     if (this.formgroup.valid) {
       console.log(this.formgroup.value);
 
       this.service.login(this.formgroup.value)
         .subscribe({
           next: (res) => {
-            alert(res.message)
-            //debugger;
             localStorage.setItem("userIsValid", "userIsValid");
             this.router.navigate(["home"]);
           },

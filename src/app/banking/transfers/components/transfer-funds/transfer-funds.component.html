@@ -8,7 +8,7 @@
           <div class="col-2 combobox-align-style">
 
             <ngl-combobox class="dropdown-style" [options]="fromAccountOptions" [(open)]="fromAccountComboboxOpen"
-              [style]="{'height': '43px'}" [dynamicPosition]="true" [(selection)]="fromAccountSelection"
+              [dynamicPosition]="true" [(selection)]="fromAccountSelection"
               (selectionChange)="onFromAccountSeleted($event)" name="fromAccountSource">From Account
               <input nglCombobox formControlName="fromAccountSource">
             </ngl-combobox>
@@ -23,8 +23,8 @@
 
           <div class="col-2">
             <ngl-combobox class="dropdown-style" [options]="toAccountOptions" [(open)]="toAccountComboboxOpen"
-              [style]="{'height': '43px'}" [dynamicPosition]="true" [(selection)]="toAccountSelection"
-              (selectionChange)="onToAccountSeleted($event)" name="toAccountSource">To Account
+              [dynamicPosition]="true" [(selection)]="toAccountSelection" (selectionChange)="onToAccountSeleted($event)"
+              name="toAccountSource">To Account
               <input nglCombobox formControlName="toAccountSource">
             </ngl-combobox>
             <br>
@@ -37,7 +37,7 @@
           <div class="col-2 combobox-align-style">
             <label for="amount">Amount</label>
             <input type="number" class="form-control" formControlName="amount" placeholder="Amount" name="amount"
-              [style]="{'height': '40px'}" [(ngModel)]="transferFundsRequest.amount" />
+              [(ngModel)]="transferFundsRequest.amount" />
 
             <!-- display error start -->
             <div *ngIf="amount.invalid && (amount.touched || amount.dirty)">
@@ -54,8 +54,9 @@
             <div class="search-div-style">
               <button [disabled]="!formgroup.valid" nglButton type="submit" class="btn btn-primary"
                 overrideheight>Transfer</button>
+              &nbsp; | &nbsp;
+              <a class="link" [routerLink]="['/transferFundsHistory']">Back to List</a>
             </div>
-            <a class="link" [routerLink]="['/transferFundsHistory']">Back to List</a>
           </div>
 
           <div class="col">

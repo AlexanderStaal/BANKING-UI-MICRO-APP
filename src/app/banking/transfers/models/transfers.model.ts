@@ -7,8 +7,8 @@ export class TransferFundsStatus {
 }
 
 export class TransferFundsData {
-  accountFromNumber: number | null;
-  accountToNumber: number | null;
+  fromAccountNumber: number | null;
+  toAccountNumber: number | null;
   amount: number | null;
 }
 

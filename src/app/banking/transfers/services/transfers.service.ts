@@ -21,8 +21,6 @@ export class TransfersService {
     this.baseUrl = `${environment.bankingUri}Transactions/`;
   }
 
-  
-
   public getTransferSources(): Observable<TransferSource[]> {
     return this.http.get<TransferSource[]>(this.baseUrl + 'GetTransferSource').pipe(
       catchError(err => {

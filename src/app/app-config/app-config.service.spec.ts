@@ -1,6 +1,5 @@
-import { TestBed } from '@angular/core/testing';
-
 import { AppConfigService } from './app-config.service';
+import { TestBed } from '@angular/core/testing';
 
 describe('AppConfigService', () => {
   let service: AppConfigService;

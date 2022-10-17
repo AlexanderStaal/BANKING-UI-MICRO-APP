@@ -1,6 +1,6 @@
 import { environment } from './../../../../environments/environment.prod';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User, InternalUser, Login } from '../models/login.model';
+import { User, InternalUser } from '../models/login.model';
 import { catchError, of, throwError } from 'rxjs';
 import { IUser } from '../../startup/iuser.model';
 import { Injectable } from '@angular/core';
@@ -20,11 +20,10 @@ export class LoginService {
   baseUrl: string = '';
 
   constructor(private readonly http: HttpClient) {
-    this.baseUrl = `${environment.bankingUri}Users/`;
+    this.baseUrl = `${environment.bankingUri}User/`;
   }
 
   userData(userName: string): Observable<InternalUser> {
-    //debugger;
     return this.http.get<InternalUser>(this.baseUrl + userName).pipe(
       catchError(err => {
         return throwError(() => {
@@ -46,12 +45,10 @@ export class LoginService {
   }
 
   signUp(user: any) {
-    debugger;
     return this.http.post<any>(`${this.baseUrl}RegisterUser`, user);
   }
 
   login(login: any) {
-    debugger;
     return this.http.post<any>(`${this.baseUrl}Authenticate`, login);
   }
 

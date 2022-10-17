@@ -1,10 +1,11 @@
-import { Router } from '@angular/router';
-import ValidateForm from 'src/app/banking/shared/formValidator';
-import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
 import { LoginService } from '../shared/services/login.service';
+import ValidateForm from 'src/app/banking/shared/formValidator';
 import { RoleType } from '../login/role-type.component';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-signup',
@@ -24,13 +25,13 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.formgroup = new FormGroup({
-      "firstName": new FormControl(''),
-      "lastName": new FormControl(''),
-      "userName": new FormControl(''),
-      "password": new FormControl(''),
+      "firstName": new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z 0-9]*')]),
+      "lastName": new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z 0-9]*')]),
+      "userName": new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z 0-9]*')]),
+      "password": new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z 0-9]*')]),
       "token": new FormControl(''),
       "role": new FormControl(RoleType.APP_USER),
-      "email": new FormControl(''),
+      "email": new FormControl('', [Validators.required]),
     });
   }
 
@@ -40,16 +41,14 @@ export class SignupComponent implements OnInit {
     this.isText ? this.type = "text" : this.type = "password";
   }
 
-  // get firstName() { return this.formgroup.get('firstName') }
-  // get lastName() { return this.formgroup.get('lastName') }
-  // get email() { return this.formgroup.get('email') }
-  // get userName() { return this.formgroup.get('userName') }
-  // get password() { return this.formgroup.get('password') }
+  get firstName() { return this.formgroup.get('firstName') }
+  get lastName() { return this.formgroup.get('lastName') }
+  get email() { return this.formgroup.get('email') }
+  get userName() { return this.formgroup.get('userName') }
+  get password() { return this.formgroup.get('password') }
 
 
   onSingup(): void {
-    debugger;
-
     if (this.formgroup.valid) {
       this.service.signUp(this.formgroup.value)
         .subscribe({

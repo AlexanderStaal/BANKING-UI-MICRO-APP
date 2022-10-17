@@ -3,9 +3,9 @@ import { ResponseType } from 'src/app/shared/events/response-type/response-type.
 import { TransferFundsData, TransferFundsStatus } from './../../models/transfers.model';
 import { DialogService } from 'src/app/shared/dialog/services/dialog.service';
 import { AccountService } from './../../../accounts/services/account.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TransfersService } from './../../services/transfers.service';
 import { AccountData } from '../../../accounts/models/account.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table'
 import { ActivatedRoute, Router } from '@angular/router';
 import { NglComboboxOptionItem } from 'ng-lightning';
@@ -23,35 +23,29 @@ enum PropertyType {
 })
 
 export class TransferFundsComponent implements OnInit {
-
   formgroup: any;
   submitted = false;
   openDialog: boolean;
   onSuccess: Boolean;
-
   fromAccountOptions: NglComboboxOptionItem[];
   fromAccountComboboxOpen: any;
   fromAccountSelection;
-
   toAccountOptions: NglComboboxOptionItem[];
   toAccountComboboxOpen: any;
   toAccountSelection;
-
   transferFundsStatus: TransferFundsStatus;
   responseStatus;
   fromAccountMsg;
   toAccountMsg;
   errorMessage;
-
   dataSource: MatTableDataSource<AccountData>;
-
   fromAccountDetailsData;
   toAccountDetailsData;
   accountDetailsColumns: string[] = ['accountNumber', 'accountName', 'balance'];
 
   transferFundsRequest: TransferFundsData = {
-    accountFromNumber: 0,
-    accountToNumber: 0,
+    fromAccountNumber: 0,
+    toAccountNumber: 0,
     amount: 0
   };
 
@@ -80,8 +74,8 @@ export class TransferFundsComponent implements OnInit {
 
   loadTransferSources(): void {
     this.transferFundsRequest = {
-      accountFromNumber: parseInt(this.fromAccountSelection),
-      accountToNumber: parseInt(this.toAccountSelection),
+      fromAccountNumber: parseInt(this.fromAccountSelection),
+      toAccountNumber: parseInt(this.toAccountSelection),
       amount: this.transferFundsRequest.amount
     };
 
@@ -100,8 +94,8 @@ export class TransferFundsComponent implements OnInit {
       this.toAccountOptions = fromOptionsData;
       this.toAccountOptions.unshift(toPickListVal)
 
-      this.fromAccountOptions = this.fromAccountOptions.filter(a => a.value != "-- Select To Account --");
-      this.toAccountOptions = this.toAccountOptions.filter(a => a.value != "-- Select From Account --");
+      this.fromAccountOptions = this.fromAccountOptions.filter(a => a.value != "-- Select From Account --");
+      this.toAccountOptions = this.toAccountOptions.filter(a => a.value != "-- Select To Account --");
     },
       error => {
         this.errorMessage = 'Please set up some accounts';
@@ -162,17 +156,17 @@ export class TransferFundsComponent implements OnInit {
   initiatedTransfer(): void {
     let isSubmit: Boolean = true;
     this.transferFundsRequest = {
-      accountFromNumber: parseInt(this.fromAccountSelection),
-      accountToNumber: parseInt(this.toAccountSelection),
+      fromAccountNumber: parseInt(this.fromAccountSelection),
+      toAccountNumber: parseInt(this.toAccountSelection),
       amount: this.transferFundsRequest.amount
     };
 
-    if (isNaN(this.transferFundsRequest.accountFromNumber)) {
+    if (isNaN(this.transferFundsRequest.fromAccountNumber)) {
       this.fromAccountMsg = ResponseType.SELECT_FROM_ACCOUNT
       isSubmit = false;
     }
 
-    if (isNaN(this.transferFundsRequest.accountToNumber)) {
+    if (isNaN(this.transferFundsRequest.toAccountNumber)) {
       this.toAccountMsg = ResponseType.SELECT_TO_ACCOUNT
       isSubmit = false;
     }

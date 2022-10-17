@@ -7,31 +7,65 @@
                         <h3 class="pt-3 font-weight-bold">Sign Up</h3>
                     </div>
                     <div class="panel-dody p3">
-                        <form [formGroup]="formgroup" >
+                        <form [formGroup]="formgroup">
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-user pt-2"></span>
                                     <input formControlName="firstName" type="text" placeholder="FirstName">
                                 </div>
                             </div>
+                            <!-- display error start -->
+                            <div class="error-field"
+                                *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)">
+                                <span class="text-danger" *ngIf="firstName.errors?.['required']">*First Name is
+                                    Required</span>
+                                <span class="text-danger" *ngIf="firstName.errors?.['pattern']">*Enter only
+                                    Alphnumeric characters.</span>
+                            </div>
+                            <!-- display error end -->
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-user pt-2"></span>
                                     <input formControlName="lastName" type="text" placeholder="LastName">
                                 </div>
                             </div>
+                             <!-- display error start -->
+                             <div class="error-field"
+                             *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
+                             <span class="text-danger" *ngIf="lastName.errors?.['required']">*Last Name is
+                                 Required</span>
+                             <span class="text-danger" *ngIf="lastName.errors?.['pattern']">*Enter only
+                                 Alphnumeric characters.</span>
+                         </div>
+                         <!-- display error end -->
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-user pt-2"></span>
                                     <input formControlName="email" type="text" placeholder="email">
                                 </div>
                             </div>
+                             <!-- display error start -->
+                             <div class="error-field"
+                             *ngIf="email.invalid && (email.touched || email.dirty)">
+                             <span class="text-danger" *ngIf="email.errors?.['required']">*Email is
+                                 Required</span>
+                         </div>
+                         <!-- display error end -->
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-user pt-2"></span>
                                     <input formControlName="userName" type="text" placeholder="Username">
                                 </div>
                             </div>
+                             <!-- display error start -->
+                             <div class="error-field"
+                             *ngIf="userName.invalid && (userName.touched || userName.dirty)">
+                             <span class="text-danger" *ngIf="userName.errors?.['required']">*Password is
+                                 Required</span>
+                             <span class="text-danger" *ngIf="userName.errors?.['pattern']">*Enter only
+                                 Alphnumeric characters.</span>
+                         </div>
+                         <!-- display error end -->
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-lock pt-2"></span>
@@ -39,6 +73,15 @@
                                     <span (click)="hideShowPsw()" class="fa {{eyeIcon}}"></span>
                                 </div>
                             </div>
+                             <!-- display error start -->
+                             <div class="error-field"
+                             *ngIf="password.invalid && (password.touched || password.dirty)">
+                             <span class="text-danger" *ngIf="password.errors?.['required']">*First Name is
+                                 Required</span>
+                             <span class="text-danger" *ngIf="password.errors?.['pattern']">*Enter only
+                                 Alphnumeric characters.</span>
+                         </div>
+                         <!-- display error end -->
 
                             <button (click)="onSingup()" type="submit" class="btn btn-primary btn-block mt-4 w-100"
                                 data-bs-toggle="button">Sign Up</button>
@@ -48,9 +91,14 @@
                     </div>
                     <div class="mx-3 my-2 py-2 bordert">
                         <div class="text-center py-3">
-                            <a href="https://www.facebook.com" target="_blank" class="px-2"><img src="https://www.dpreview.com/files/p/articles/4698742202/facebook.jpeg" alt=""></a>
-                            <a href="https://www.google.com" target="_blank" class="px-2"><img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png" alt=""></a>
-                            <a href="https://www.github.com" target="_blank" class="px-2"><img src="https://www.freepnglogos.com/uploads/512x512-logo-png/512x512-logo-github-icon-35.png" alt=""></a>
+                            <a href="https://www.facebook.com" target="_blank" class="px-2"><img
+                                    src="https://www.dpreview.com/files/p/articles/4698742202/facebook.jpeg" alt=""></a>
+                            <a href="https://www.google.com" target="_blank" class="px-2"><img
+                                    src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"
+                                    alt=""></a>
+                            <a href="https://www.github.com" target="_blank" class="px-2"><img
+                                    src="https://www.freepnglogos.com/uploads/512x512-logo-png/512x512-logo-github-icon-35.png"
+                                    alt=""></a>
                         </div>
                     </div>
                 </div>

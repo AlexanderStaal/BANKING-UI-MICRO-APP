@@ -54,7 +54,6 @@ export class AccountService {
   };
 
   public createAccount(accountRequest: AccountData): Observable<CreateAccountStatus> {
-    debugger;
     return this.http.post<CreateAccountStatus>(this.baseUrl + 'CreateAccount', accountRequest).pipe(
       catchError(err => {
         return throwError(() => {
