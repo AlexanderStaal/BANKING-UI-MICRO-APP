@@ -1,134 +1,140 @@
-<div class="container">
-    <h1 class="d-flex">All Transactions</h1>
-    <form novalidate [formgroup]="formgroup">
-        <mat-form-field>
-            <mat-label>Filter</mat-label>
-            <input matInput placeholder="Filter" (keyup)="Filterchange($event)">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-select placeholder="Esport" [(value)]="selectedOption">
-                <mat-option value="0"></mat-option>
-                <mat-option id='btn' #btn value="1"
-                    (click)="exporter.exportTable('xlsx', {sheet: 'sheet_name', Props: {Author: 'Talha'}, columnWidths: [50, 5, 3]});btn.value=null">
-                    Excel</mat-option>
-                <mat-option id='btn2' #btn2 value="2" (click)="exporter.exportTable('csv');btn2.value=null">CVC
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+<h3 class="d-flex justify-content-center">
+    <div class="container mt-5">
+        <h1 class="d-flex">All Transactions</h1>
+        <form novalidate [formgroup]="formgroup">
 
-        <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" class="slds-table"
-            matSort matSortActive="transactionTime" matSortDirection="desc">
+            <div class="row">
+                <div class="col-md-8 col-lg-1 col-lg-6">
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="Filterchange($event)">
+                </div>
+                <div class="col-md-4 col-lg-1 col-lg-6">
+                    <mat-label>Export</mat-label>
+                    <mat-select [(value)]="selectedOption" style="width: 20%;">
+                        <mat-option value="0"></mat-option>
+                        <mat-option id='btn' #btn value="1"
+                            (click)="exporter.exportTable('xlsx', {sheet: 'sheet_name', Props: {Author: 'Talha'}, columnWidths: [50, 5, 3]});btn.value=null">
+                            Excel</mat-option>
+                        <mat-option id='btn2' #btn2 value="2" (click)="exporter.exportTable('csv');btn2.value=null">CVC
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
 
-            <ng-container matColumnDef="noRecordsFound">
-                <th mat-header-cell mat-sort-header *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let element"> No Records Found.</td>
-            </ng-container>
+            <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" class="slds-table"
+                matSort matSortActive="transactionId" matSortDirection="desc">
 
-            <ng-container matColumnDef="transactionId">
-                <th mat-header-cell mat-sort-header *matHeaderCellDef> Transaction Id </th>
-                <td mat-cell *matCellDef="let element"> {{element.transactionId}} </td>
-            </ng-container>
-
-
-            <ng-container matColumnDef="fromAccountNumber">
-                <th mat-sort-header mat-header-cell *matHeaderCellDef> From Number </th>
-                <td mat-cell *matCellDef="let element"> {{element.fromAccountNumber}} </td>
-            </ng-container>
-
-
-            <ng-container matColumnDef="toAccountNumber">
-                <th mat-sort-header mat-header-cell *matHeaderCellDef> To Account </th>
-                <td mat-cell *matCellDef="let element"> {{element.toAccountNumber}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="transactionTime">
-                <th mat-sort-header mat-header-cell *matHeaderCellDef> Transaction Time</th>
-                <td mat-cell *matCellDef="let element"> {{element.transactionTime | date: 'MM-dd-yyyy hh:mm:ss'}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="amountDebit">
-                <th mat-sort-header mat-header-cell *matHeaderCellDef> Amount Debit</th>
-                <td mat-cell *matCellDef="let element"> {{element.amountDebit}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="fromAccountBalance">
-                <th mat-sort-header mat-header-cell *matHeaderCellDef> FromAccount Balance</th>
-                <td mat-cell *matCellDef="let element"> {{element.fromAccountBalance}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="toAccountBalance">
-                <th mat-sort-header mat-header-cell *matHeaderCellDef> To Account Balance </th>
-                <td mat-cell *matCellDef="let element"> {{element.toAccountBalance}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="action">
-                <th mat-sort-header mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let element; let i = index" class="action">
-                    <a class="link" (click)="show(element)">Details</a>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-        <mat-paginator [hidden]="!dataSource" [pageSize]="5" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons>
-        </mat-paginator>
-    </form>
-
-    <table>
-        <tr *ngIf="!dataSource">
-            <td class="no-records" [attr.colspan]="displayedColumns.length">
-                No Records Found!
-            </td>
-        </tr>
-    </table>
-
-    <ngl-modal header="" [(open)]="openDialog" size="medium">
-        <div class="container">
-            <table mat-table [dataSource]="dataSourceTransaction" class="mat-elevation-z8" class="slds-table">
+                <ng-container matColumnDef="noRecordsFound">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"> No Records Found.</td>
+                </ng-container>
 
                 <ng-container matColumnDef="transactionId">
-                    <th mat-header-cell *matHeaderCellDef> Transaction Id </th>
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Transaction Id </th>
                     <td mat-cell *matCellDef="let element"> {{element.transactionId}} </td>
                 </ng-container>
 
+
                 <ng-container matColumnDef="fromAccountNumber">
-                    <th mat-header-cell *matHeaderCellDef> FromAccount Number </th>
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> From Number </th>
                     <td mat-cell *matCellDef="let element"> {{element.fromAccountNumber}} </td>
                 </ng-container>
 
+
                 <ng-container matColumnDef="toAccountNumber">
-                    <th mat-header-cell *matHeaderCellDef> To Account Number </th>
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> To Account </th>
                     <td mat-cell *matCellDef="let element"> {{element.toAccountNumber}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="transactionTime">
-                    <th mat-header-cell *matHeaderCellDef> Transaction Time </th>
-                    <td mat-cell *matCellDef="let element"> {{element.transactionTime}} </td>
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Transaction Time</th>
+                    <td mat-cell *matCellDef="let element"> {{element.transactionTime | date: 'MM-dd-yyyy hh:mm:ss'}}
+                    </td>
                 </ng-container>
 
                 <ng-container matColumnDef="amountDebit">
-                    <th mat-header-cell *matHeaderCellDef> Amount Debit </th>
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Amount Debit</th>
                     <td mat-cell *matCellDef="let element"> {{element.amountDebit}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="fromAccountBalance">
-                    <th mat-header-cell *matHeaderCellDef> From Account Balance </th>
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> FromAccount Balance</th>
                     <td mat-cell *matCellDef="let element"> {{element.fromAccountBalance}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="toAccountBalance">
-                    <th mat-header-cell *matHeaderCellDef> To Account Balance </th>
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> To Account Balance </th>
                     <td mat-cell *matCellDef="let element"> {{element.toAccountBalance}} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="transactionDetailsColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: transactionDetailsColumns;"></tr>
+                <ng-container matColumnDef="action">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element; let i = index" class="action">
+                        <a class="link" (click)="show(element)">Details</a>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-        </div>
 
-    </ngl-modal>
-</div>
+            <mat-paginator [hidden]="!dataSource" [pageSize]="5" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons>
+            </mat-paginator>
+        </form>
+    </div>
+</h3>
 
+<table>
+    <tr *ngIf="!dataSource">
+        <td class="no-records" [attr.colspan]="displayedColumns.length">
+            No Records Found!
+        </td>
+    </tr>
+</table>
+
+<ngl-modal header="" [(open)]="openDialog" size="medium">
+    <div class="container">
+        <table mat-table [dataSource]="dataSourceTransaction" class="mat-elevation-z8" class="slds-table">
+
+            <ng-container matColumnDef="transactionId">
+                <th mat-header-cell *matHeaderCellDef> Transaction Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.transactionId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fromAccountNumber">
+                <th mat-header-cell *matHeaderCellDef> FromAccount Number </th>
+                <td mat-cell *matCellDef="let element"> {{element.fromAccountNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="toAccountNumber">
+                <th mat-header-cell *matHeaderCellDef> To Account Number </th>
+                <td mat-cell *matCellDef="let element"> {{element.toAccountNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="transactionTime">
+                <th mat-header-cell *matHeaderCellDef> Transaction Time </th>
+                <td mat-cell *matCellDef="let element"> {{element.transactionTime}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amountDebit">
+                <th mat-header-cell *matHeaderCellDef> Amount Debit </th>
+                <td mat-cell *matCellDef="let element"> {{element.amountDebit}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fromAccountBalance">
+                <th mat-header-cell *matHeaderCellDef> From Account Balance </th>
+                <td mat-cell *matCellDef="let element"> {{element.fromAccountBalance}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="toAccountBalance">
+                <th mat-header-cell *matHeaderCellDef> To Account Balance </th>
+                <td mat-cell *matCellDef="let element"> {{element.toAccountBalance}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="transactionDetailsColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: transactionDetailsColumns;"></tr>
+        </table>
+    </div>
+
+</ngl-modal>
 <router-outlet></router-outlet>

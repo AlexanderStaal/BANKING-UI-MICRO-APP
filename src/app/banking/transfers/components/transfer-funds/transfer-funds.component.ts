@@ -17,7 +17,7 @@ enum PropertyType {
 }
 
 @Component({
-  selector: 'app-transferfund',
+  selector: 'app-transferfunds',
   templateUrl: './transfer-funds.component.html',
   styleUrls: ['./transfer-funds.component.scss']
 })
@@ -27,12 +27,17 @@ export class TransferFundsComponent implements OnInit {
   submitted = false;
   openDialog: boolean;
   onSuccess: Boolean;
+
   fromAccountOptions: NglComboboxOptionItem[];
   fromAccountComboboxOpen: any;
   fromAccountSelection;
+  fromAccount: any;
+
   toAccountOptions: NglComboboxOptionItem[];
   toAccountComboboxOpen: any;
   toAccountSelection;
+  toAccount: any;
+
   transferFundsStatus: TransferFundsStatus;
   responseStatus;
   fromAccountMsg;
@@ -46,7 +51,7 @@ export class TransferFundsComponent implements OnInit {
   transferFundsRequest: TransferFundsData = {
     fromAccountNumber: 0,
     toAccountNumber: 0,
-    amount: 0
+    amount: ''
   };
 
   constructor(private readonly service: TransfersService,
@@ -58,8 +63,8 @@ export class TransferFundsComponent implements OnInit {
 
   ngOnInit(): void {
     this.formgroup = new FormGroup({
-      "fromAccountSource": new FormControl(PropertyType.toAccount),
-      "toAccountSource": new FormControl(PropertyType.toAccount),
+      "fromAccount": new FormControl(PropertyType.fromAccount),
+      "toAccount": new FormControl(PropertyType.toAccount),
       "amount": new FormControl(null, [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1), Validators.max(10000)])
     });
 
@@ -73,11 +78,8 @@ export class TransferFundsComponent implements OnInit {
   get amount() { return this.formgroup.get('amount'); }
 
   loadTransferSources(): void {
-    this.transferFundsRequest = {
-      fromAccountNumber: parseInt(this.fromAccountSelection),
-      toAccountNumber: parseInt(this.toAccountSelection),
-      amount: this.transferFundsRequest.amount
-    };
+
+    debugger;
 
     this.service.getTransferSources().subscribe((res: any) => {
       let fromOptionsData: NglComboboxOptionItem[] = res;
@@ -86,32 +88,31 @@ export class TransferFundsComponent implements OnInit {
         fromOptionsData.push({ value: res[i].value, label: res[i].text });
       }
 
-      var fromPickListVal = { "attributes": null, "label": "-- Select From Account --", "validFor": [], "value": "-- Select From Account --" };
       this.fromAccountOptions = fromOptionsData;
-      this.fromAccountOptions.unshift(fromPickListVal)
-
-      var toPickListVal = { "attributes": null, "label": "-- Select To Account --", "validFor": [], "value": "-- Select To Account --" };
       this.toAccountOptions = fromOptionsData;
-      this.toAccountOptions.unshift(toPickListVal)
 
-      this.fromAccountOptions = this.fromAccountOptions.filter(a => a.value != "-- Select From Account --");
-      this.toAccountOptions = this.toAccountOptions.filter(a => a.value != "-- Select To Account --");
     },
       error => {
-        this.errorMessage = 'Please set up some accounts';
+        this.errorMessage = 'Please setup some accounts';
       });
   }
 
-  onFromAccountSeleted(selectedAccountNumber: any): void {
-    this.toAccountOptions = this.toAccountOptions.filter(a => a.value != selectedAccountNumber);
-    this.bindData(selectedAccountNumber, PropertyType.fromAccount);
+  onFromAccountSeleted(): void {
+    let fromAccount = this.formgroup.get("fromAccount").value;
+    this.toAccountOptions = this.toAccountOptions.filter(a => a.value != fromAccount);
+    this.bindData(fromAccount, PropertyType.fromAccount);
+    this.fromAccountMsg = "";
   }
 
-  onToAccountSeleted(selectedAccountNumber: any): void {
-    this.bindData(selectedAccountNumber, PropertyType.toAccount);
+  onToAccountSeleted(): void {
+    let toAccount = this.formgroup.get("toAccount").value;
+    this.bindData(toAccount, PropertyType.toAccount);
+    this.toAccountMsg = "";
   }
 
+  
   bindData(accountNumber: number, accountType: PropertyType): void {
+    debugger;
     this.activeRouter.paramMap.subscribe({
       next: (param) => {
         this.accoutService.getAccount(accountNumber)
@@ -131,13 +132,6 @@ export class TransferFundsComponent implements OnInit {
     });
   }
 
-  getCategory(event) {
-    let params = {
-      'value': event,
-      'lable': ''
-    }
-  }
-
   transferFunds(): void {
     const myCompDialog = this.dialogService.confirmDialog({
       title: 'Are you sure you want to transfer funds?',
@@ -154,24 +148,36 @@ export class TransferFundsComponent implements OnInit {
 
   }
   initiatedTransfer(): void {
+    debugger;
+
     let isSubmit: Boolean = true;
-    this.transferFundsRequest = {
-      fromAccountNumber: parseInt(this.fromAccountSelection),
-      toAccountNumber: parseInt(this.toAccountSelection),
-      amount: this.transferFundsRequest.amount
+
+    if (isNaN(this.formgroup.controls['fromAccount'].value) || this.formgroup.controls['fromAccount'].value == PropertyType.fromAccount) {
+      this.fromAccountMsg = ResponseType.SELECT_FROM_ACCOUNT;
+      isSubmit = false;
+    }
+
+    if (isNaN(this.formgroup.controls['toAccount'].value) || this.formgroup.controls['toAccount'].value == PropertyType.toAccount) {
+      this.toAccountMsg = ResponseType.SELECT_TO_ACCOUNT;
+      isSubmit = false;
+    }
+
+    if (isNaN(this.formgroup.controls['amount'].value)) {
+      this.toAccountMsg = ResponseType.TRANSFER_AMOUNT_REQUIRED;
+      isSubmit = false;
+    }
+    else {
+      this.formgroup.controls['amount'].value = Number(this.formgroup.controls['amount'].value);
+    }
+
+      this.transferFundsRequest = {
+      fromAccountNumber: Number(this.formgroup.controls['fromAccount'].value),
+      toAccountNumber: Number(this.formgroup.controls['toAccount'].value),
+      amount: this.formgroup.controls['amount'].value
     };
 
-    if (isNaN(this.transferFundsRequest.fromAccountNumber)) {
-      this.fromAccountMsg = ResponseType.SELECT_FROM_ACCOUNT
-      isSubmit = false;
-    }
-
-    if (isNaN(this.transferFundsRequest.toAccountNumber)) {
-      this.toAccountMsg = ResponseType.SELECT_TO_ACCOUNT
-      isSubmit = false;
-    }
-
     if (isSubmit) {
+      debugger;
       this.service.transferFunds(this.transferFundsRequest)
         .subscribe({
           next: (data) => {

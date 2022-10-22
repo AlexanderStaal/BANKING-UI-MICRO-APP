@@ -60,6 +60,7 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "src/assets/popper.min.js",
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
@@ -99,6 +100,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "generatedatatool:builder",
+            "proxyConfig": "src/proxy.config.json"
+          },
           "configurations": {
             "production": {
               "browserTarget": "BANKING-UI-MICRO-APP:build:production"
@@ -130,17 +135,25 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "./node_modules/@nebular/theme/styles/prebuilt/default.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-spinner/animations/line-spin-fade.css",
               "./node_modules/ngx-spinner/animations/ball-circus.css",
               "src/styles.scss"
             ],
             "scripts": [
-          ]
+              "src/assets/popper.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "90172ad4-3847-4b2a-a44b-0f360be77e4c"
   }
 }

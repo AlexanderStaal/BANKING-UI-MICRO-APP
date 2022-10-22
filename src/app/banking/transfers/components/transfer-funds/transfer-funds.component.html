@@ -1,83 +1,90 @@
-<h3 class="d-flex justify-content-center">
+<h2 class="d-flex justify-content-center">
   <div class="container mt-5">
     <h1 class="d-flex justify-content-center">Transfer Funds</h1>
-    <form [formGroup]="formgroup" (ngSubmit)="transferFunds()">
-      <div class="cardtitle">
-        <div class="row">
 
-          <div class="col-2 combobox-align-style">
+    <div class="m-4">
+      <form class="row gx-3 gy-2 align-items-center" [formGroup]="formgroup" (ngSubmit)="transferFunds()">
 
-            <ngl-combobox class="dropdown-style" [options]="fromAccountOptions" [(open)]="fromAccountComboboxOpen"
-              [dynamicPosition]="true" [(selection)]="fromAccountSelection"
-              (selectionChange)="onFromAccountSeleted($event)" name="fromAccountSource">From Account
-              <input nglCombobox formControlName="fromAccountSource">
-            </ngl-combobox>
-            <br>
-            <small class="form-text text-danger">
-              {{ fromAccountMsg }}<br />
-            </small>
-            <span class="text-danger">
-              {{ responseStatus }}<br />
-            </span>
-          </div>
+        <div class="col-sm-3">
+          <select class="form-select" formControlName="fromAccount" (change)="onFromAccountSeleted()">
+            <option selected>From Account</option>
+            <option *ngFor="let item of fromAccountOptions" [value]="item.value">
+              {{item.label}}
+            </option>
+          </select>
+        </div>
 
-          <div class="col-2">
-            <ngl-combobox class="dropdown-style" [options]="toAccountOptions" [(open)]="toAccountComboboxOpen"
-              [dynamicPosition]="true" [(selection)]="toAccountSelection" (selectionChange)="onToAccountSeleted($event)"
-              name="toAccountSource">To Account
-              <input nglCombobox formControlName="toAccountSource">
-            </ngl-combobox>
-            <br>
-            <small class="form-text text-danger">
-              {{ toAccountMsg }}<br />
-            </small>
-          </div>
+        <div class="col-sm-3">
+          <select class="form-select" formControlName="toAccount" (change)="onToAccountSeleted()">
+            <option selected>To Account</option>
+            <option *ngFor="let item of toAccountOptions" [value]="item.value">
+              {{item.label}}
+            </option>
+          </select>
+        </div>
 
-          <!-- amount -->
-          <div class="col-2 combobox-align-style">
-            <label for="amount">Amount</label>
+        <div class="col-sm-3">
+          <div class="input-group">
+            <div class="input-group-text">$</div>
             <input type="number" class="form-control" formControlName="amount" placeholder="Amount" name="amount"
               [(ngModel)]="transferFundsRequest.amount" />
-
-            <!-- display error start -->
-            <div *ngIf="amount.invalid && (amount.touched || amount.dirty)">
-              <span class="text-danger" *ngIf="amount.errors?.required">*Amount is Required</span>
-              <span class="text-danger" *ngIf="amount.errors?.min">*Allowed ammount beetwen
-                $1-$10000</span>
-              <span class="text-danger" *ngIf="amount.errors?.max">*Allowed ammount beetwen
-                $1-$10000</span>
-            </div>
           </div>
-          <!-- display error end -->
+        </div>
+        <div class="col-auto">
+          <button [disabled]="!formgroup.valid" nglButton type="submit" class="btn btn-primary"
+            overrideheight>Transfer</button>
+          &nbsp; | &nbsp;
+          <a class="link" [routerLink]="['/transferFundsHistory']">Back to List</a>
+        </div>
+      </form>
+    </div>
 
-          <div class="col text-right">
-            <div class="search-div-style">
-              <button [disabled]="!formgroup.valid" nglButton type="submit" class="btn btn-primary"
-                overrideheight>Transfer</button>
-              &nbsp; | &nbsp;
-              <a class="link" [routerLink]="['/transferFundsHistory']">Back to List</a>
-            </div>
-          </div>
-
-          <div class="col">
-          </div>
-
+    <div class="errorpanel">
+      <div class="row mb-3">
+        <div class="col-sm-10">
+          <small class="form-text text-danger">
+            {{errorMessage}}
+          </small>
         </div>
       </div>
-    </form>
+      <div class="row mb-3">
+        <div class="col-sm-10">
+          <small class="form-text text-danger">
+            {{fromAccountMsg}}
+          </small>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-10">
+          <small class="form-text text-danger">
+            {{toAccountMsg}}
+          </small>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-10">
+          {{responseStatus}}
+        </div>
+      </div>
 
-
-    <table>
-      <tr *ngIf="!dataSource">
-        <td class="no-records">
-          {{errorMessage}}
-        </td>
-      </tr>
-    </table>
+      <div class="row mb-3">
+        <div class="col-sm-10">
+          <small class="form-text text-danger">
+            <div *ngIf="amount.invalid && (amount.touched || amount.dirty)">
+              <span class="text-danger" *ngIf="amount.errors?.required">&nbsp;*Amount is Required</span>
+              <span class="text-danger" *ngIf="amount.errors?.min">&nbsp;*Allowed ammount beetwen
+                $1-$10000</span>
+              <span class="text-danger" *ngIf="amount.errors?.max">&nbsp;*Allowed ammount beetwen
+                $1-$10000</span>
+            </div>
+          </small>
+        </div>
+      </div>
+    </div>
   </div>
-</h3>
+</h2>
 
-<ng-container class="container" *ngIf="fromAccountDetailsData" class="row">
+<ng-container class="resultpanel" *ngIf="fromAccountDetailsData">
   <table mat-table [dataSource]="fromAccountDetailsData" class="slds-table">
 
     <ng-container matColumnDef="accountNumber">
@@ -100,7 +107,7 @@
   </table>
 </ng-container>
 
-<ng-container class="container" *ngIf="toAccountDetailsData" class="row">
+<ng-container class="resultpanel" *ngIf="toAccountDetailsData">
   <table mat-table [dataSource]="toAccountDetailsData" class="slds-table">
 
     <ng-container matColumnDef="accountNumber">

@@ -8,23 +8,21 @@
 
         <form novalidate [formGroup]="formgroup">
             <hr>
-            <div class="row search-row">
-                <div class="col search-result-style" id="scrollbar" #target *ngIf="dataSource">
-                    <mat-form-field>
-                        <mat-label>Filter</mat-label>
-                        <input matInput placeholder="Filter" (keyup)="Filterchange($event)">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-select placeholder="Esport" [(value)]="selectedOption">
-                            <mat-option value="0"></mat-option>
-                            <mat-option id='btn' #btn value="1"
-                                (click)="exporter.exportTable('xlsx', {sheet: 'sheet_name', Props: {Author: 'Talha'}, columnWidths: [50, 5, 3]});btn.value=null">
-                                Excel</mat-option>
-                            <mat-option id='btn2' #btn2 value="2" (click)="exporter.exportTable('csv');btn2.value=null">
-                                CVC
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+            <div class="row">
+                <div class="col-md-8 col-lg-1 col-lg-6">
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="Filterchange($event)">
+                </div>
+                <div class="col-md-4 col-lg-1 col-lg-6">
+                    <mat-label>Export</mat-label>
+                    <mat-select [(value)]="selectedOption" style="width: 20%;">
+                        <mat-option value="0"></mat-option>
+                        <mat-option id='btn' #btn value="1"
+                            (click)="exporter.exportTable('xlsx', {sheet: 'sheet_name', Props: {Author: 'Talha'}, columnWidths: [50, 5, 3]});btn.value=null">
+                            Excel</mat-option>
+                        <mat-option id='btn2' #btn2 value="2" (click)="exporter.exportTable('csv');btn2.value=null">CVC
+                        </mat-option>
+                    </mat-select>
                 </div>
             </div>
 

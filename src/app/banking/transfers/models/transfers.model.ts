@@ -9,7 +9,7 @@ export class TransferFundsStatus {
 export class TransferFundsData {
   fromAccountNumber: number | null;
   toAccountNumber: number | null;
-  amount: number | null;
+  amount: string;
 }
 
 export class TransactionsData {

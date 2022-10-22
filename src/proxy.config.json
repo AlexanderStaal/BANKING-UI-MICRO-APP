@@ -1,0 +1,7 @@
+{
+    "/*":{
+        "target" : "https://7ow0ihcd8b.execute-api.us-east-1.amazonaws.com/api/",
+        "secure" : false,
+        "loglevel" : "debug"
+    }
+}

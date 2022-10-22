@@ -29,43 +29,44 @@
                                     <input formControlName="lastName" type="text" placeholder="LastName">
                                 </div>
                             </div>
-                             <!-- display error start -->
-                             <div class="error-field"
-                             *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
-                             <span class="text-danger" *ngIf="lastName.errors?.['required']">*Last Name is
-                                 Required</span>
-                             <span class="text-danger" *ngIf="lastName.errors?.['pattern']">*Enter only
-                                 Alphnumeric characters.</span>
-                         </div>
-                         <!-- display error end -->
+                            <!-- display error start -->
+                            <div class="error-field" *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
+                                <span class="text-danger" *ngIf="lastName.errors?.['required']">*Last Name is
+                                    Required</span>
+                                <span class="text-danger" *ngIf="lastName.errors?.['pattern']">*Enter only
+                                    Alphnumeric characters.</span>
+                            </div>
+                            <!-- display error end -->
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-user pt-2"></span>
-                                    <input formControlName="email" type="text" placeholder="email">
+                                    <input formControlName="Email" type="text" placeholder="Email">
                                 </div>
                             </div>
-                             <!-- display error start -->
-                             <div class="error-field"
-                             *ngIf="email.invalid && (email.touched || email.dirty)">
-                             <span class="text-danger" *ngIf="email.errors?.['required']">*Email is
-                                 Required</span>
-                         </div>
-                         <!-- display error end -->
+                            <!-- display error start -->
+                            <div class="error-field" *ngIf="email.invalid && (email.touched || email.dirty)">
+                                <span class="text-danger" *ngIf="email.errors?.['required']">*Email is
+                                    Required</span>
+                                <span class="text-danger" *ngIf="email.errors?.['email']">Email must be a valid email
+                                    address</span>
+                            </div>
+                            <!-- display error end -->
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-user pt-2"></span>
-                                    <input formControlName="userName" type="text" placeholder="Username">
+                                    <input formControlName="UserName" type="text" placeholder="Username">
                                 </div>
                             </div>
-                             <!-- display error start -->
-                             <div class="error-field"
-                             *ngIf="userName.invalid && (userName.touched || userName.dirty)">
-                             <span class="text-danger" *ngIf="userName.errors?.['required']">*Password is
-                                 Required</span>
-                             <span class="text-danger" *ngIf="userName.errors?.['pattern']">*Enter only
-                                 Alphnumeric characters.</span>
-                         </div>
-                         <!-- display error end -->
+                            <!-- display error start -->
+                            <div class="error-field" *ngIf="userName.invalid && (userName.touched || userName.dirty)">
+                                <span class="text-danger" *ngIf="userName.errors?.['required']">*User Name is
+                                    Required</span>
+                                <span class="text-danger" *ngIf="userName.errors?.minlength">*Minimum 6 characters is
+                                    Required</span>
+                                <span class="text-danger" *ngIf="userName.errors?.['pattern']">*Enter only
+                                    Alphnumeric characters.</span>
+                            </div>
+                            <!-- display error end -->
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-lock pt-2"></span>
@@ -73,15 +74,16 @@
                                     <span (click)="hideShowPsw()" class="fa {{eyeIcon}}"></span>
                                 </div>
                             </div>
-                             <!-- display error start -->
-                             <div class="error-field"
-                             *ngIf="password.invalid && (password.touched || password.dirty)">
-                             <span class="text-danger" *ngIf="password.errors?.['required']">*First Name is
-                                 Required</span>
-                             <span class="text-danger" *ngIf="password.errors?.['pattern']">*Enter only
-                                 Alphnumeric characters.</span>
-                         </div>
-                         <!-- display error end -->
+                            <!-- display error start -->
+                            <div class="error-field" *ngIf="password.invalid && (password.touched || password.dirty)">
+                                <span class="text-danger" *ngIf="password.errors?.['required']">*Password is
+                                    Required</span>
+                                <span class="text-danger" *ngIf="password.errors?.minlength">*Minimum 6 characters is
+                                    Required</span>
+                                <span class="text-danger" *ngIf="password.errors?.['pattern']">*Enter only
+                                    Alphnumeric characters.</span>
+                            </div>
+                            <!-- display error end -->
 
                             <button (click)="onSingup()" type="submit" class="btn btn-primary btn-block mt-4 w-100"
                                 data-bs-toggle="button">Sign Up</button>

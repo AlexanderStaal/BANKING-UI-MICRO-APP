@@ -10,22 +10,22 @@
     "material": "npm install --save @angular/material",
     "bootstrap": "npm install --save bootstrap",
     "elements": "npm install --save @angular/elements",
-    "lightning": "npm install --save ng-lightning --force",
+            "lightning": "npm install --save ng-lightning --force",
     "bootstrap-icons": "npm install --save bootstrap-icons --force",
-    "salesforce": "npm install @salesforce-ux/design-system@2.19.0 --force",
+         "salesforce": "npm install @salesforce-ux/design-system@2.19.0 --force",
     "mat-table-exporter": "npm install --save mat-table-exporter@9.0.2 --force",
-    "tmp": "npm install --save @angular/material @angular/cdk --force",
+    "@angular/material @angular/cdk ": "npm install --save @angular/material @angular/cdk --force",
     "@rxweb": "npm install --save @rxweb/reactive-form-validators --force",
     "spinner": "npm install ngx-spinner --save --force",
-    "nebular": "npm install nebular -icons --save --force",
+          "nebular": "npm install nebular -icons --save --force",
     "@nebular/theme": "ng add @nebular/theme",
     "audit fix": "npm audit fix --force",
-    "@fortawesome/fontawesome-": "npm install @fortawesome/fontawesome-svg-core --save --force",
-    "@fortawesome/free-solid": "npm install @fortawesome/free-solid-svg-icons --save --force",
-    "@fortawesome/angular": "npm install @fortawesome/angular-fontawesome --save --force",
+        "@fortawesome/fontawesome-": "npm install @fortawesome/fontawesome-svg-core --save --force",
+        "@fortawesome/free-solid": "npm install @fortawesome/free-solid-svg-icons --save --force",
+        "@fortawesome/angular": "npm install @fortawesome/angular-fontawesome --save --force",
     "bootstrap jquery": "npm install --save bootstrap jquery --force",
     "node-localstorage": "npm install node-localstorage --save --force",
-    "angular-webstorage-service": "npm install --save angular-webstorage-service"
+    "angular-webstorage-service": "npm install --save angular-webstorage-service --force"
   },
   "private": true,
   "dependencies": {
@@ -59,6 +59,7 @@
     "node-localstorage": "^2.2.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "webpack": "^5.74.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

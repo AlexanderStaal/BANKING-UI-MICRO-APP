@@ -1,4 +1,3 @@
-import { LocalStorage } from 'node-localstorage';
 import { TransferFundsHistoryComponent } from './banking/transfers/components/transfer-funds-history/transfer-funds-history.component';
 import { NgModule, DoBootstrap, Injector, NO_ERRORS_SCHEMA, APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { GlobalHttpErrorHandling } from './shared/error-handler/error/interceptors/global-error-handling.interceptor'; 
@@ -17,6 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StartupComponent } from './authentication/startup/startup.component';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ConfirmComponent } from './shared/dialog/confirm/confirm.component';
+import { SignupComponent } from './authentication/signup/signup.component';
+import { LogoutComponent } from './authentication/logout/logout.component';
+import { LoginComponent } from './authentication/login/login.component'; 
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -24,6 +26,7 @@ import { AppConfigService } from './app-config/app-config.service';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { StorageServiceModule } from 'angular-webstorage-service';
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -47,6 +50,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSortModule } from "@angular/material/sort";
+import { MainComponent } from './main/main.component';
 import { AppConfig } from './app-config/app-config';
 import { PortalModule } from '@angular/cdk/portal';
 import { AppComponent } from './app.component';
@@ -54,11 +58,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ErrorHandler } from '@angular/core';
 import { NglModule } from 'ng-lightning';
-import { MainComponent } from './main/main.component';
-import { LoginComponent } from './authentication/login/login.component'; 
-import { SignupComponent } from './authentication/signup/signup.component';
-import { StorageServiceModule } from 'angular-webstorage-service';
-import { LogoutComponent } from './authentication/logout/logout.component';
 
 export function initilizerFn(appConfigService: AppConfigService) {
   return () => {

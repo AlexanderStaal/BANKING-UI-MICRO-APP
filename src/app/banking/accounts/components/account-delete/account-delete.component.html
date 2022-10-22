@@ -1,33 +1,38 @@
-<h3 class="d-flex justify-content-center">
-    <div class="container mt-5">
-        <form class="content" [formGroup]="formgroup">
-            <h1 class="d-flex">Delete</h1>
-            <h2 class="d-flex">Are you sure you want to delete this?</h2>
-            <div class="row">
-                <div class="submit-form">
+<div class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white">
+                    <form class="content" [formGroup]="formgroup">
+                        <h1 class="d-flex">Delete</h1>
+                        <h2 class="d-flex">Are you sure you want to delete this?</h2>
+                        <div class="row">
+                            <div class="submit-form">
 
-                    <!-- accountName -->
-                    <div class="mb-3">
-                        <label>Account Name</label>
-                        <input type="text" class="form-control" formControlName="accountName" maxlength="15"
-                            placeholder="Account Name" [(ngModel)]="delAccountRequest.accountName" />
-                    </div>
+                                <!-- accountName -->
+                                <div class="mb-3">
+                                    <label>Account Name</label>
+                                    <input type="text" class="form-control" formControlName="accountName" maxlength="15"
+                                        placeholder="Account Name" [(ngModel)]="delAccountRequest.accountName" />
+                                </div>
 
-                    <!-- balance -->
-                    <div class="mb-3">
-                        <label for="balance">Balance</label>
-                        <input type="number" class="form-control" formControlName="balance" placeholder="Balance"
-                            [(ngModel)]="delAccountRequest.balance" />
-                    </div>
+                                <!-- balance -->
+                                <div class="mb-3">
+                                    <label for="balance">Balance</label>
+                                    <input type="number" class="form-control" formControlName="balance"
+                                        placeholder="Balance" [(ngModel)]="delAccountRequest.balance" />
+                                </div>
 
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-danger mr-5"
-                            (click)="deleteAccount(delAccountRequest.accountNumber)">Delete</button>
-                        &nbsp; | &nbsp;
-                        <a class="link mr-5" [routerLink]="['/accounts']">Back to List</a>
-                    </div>
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-danger mr-5"
+                                        (click)="deleteAccount(delAccountRequest.accountNumber)">Delete</button>
+                                    &nbsp; | &nbsp;
+                                    <a class="link mr-5" [routerLink]="['/accounts']">Back to List</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-</h3>
